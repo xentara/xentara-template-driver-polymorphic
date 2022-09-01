@@ -8,23 +8,25 @@
 
 #include <xentara/model/Attribute.hpp>
 
-// TODO: rename namespace
 namespace xentara::plugins::templateDriver
 {
 
 using namespace std::literals;
 
-// Data type specific functionality for TemplateOutput.
-// 
-// TODO: rename this class to something more descriptive
-// 
-// TODO: split this class into several classes for different value types or classes of value type, if necessary.
-// For example, this class could be split into TemplateBooleanOutputHandler, TemplateIntegerOutputHandler,
-// and TemplateFloatingPointOutputHandler classes.
+/// @brief Data type specific functionality for TemplateOutput.
+///
+/// @todo rename this class to something more descriptive
+///
+/// @todo split this class into several classes for different value types or classes of value type, if necessary.
+/// For example, this class could be split into TemplateBooleanOutputHandler, TemplateIntegerOutputHandler,
+/// and TemplateFloatingPointOutputHandler classes.
 template <typename ValueType>
 class TemplateOutputHandler final : public AbstractTemplateOutputHandler
 {
 public:
+	/// @name Virtual Overrides for AbstractTemplateOutputHandler
+	/// @{
+
 	auto dataType() const -> const data::DataType & final;
 
 	auto resolveAttribute(std::u16string_view name) -> const model::Attribute * final;
@@ -42,36 +44,44 @@ public:
 	auto write(std::chrono::system_clock::time_point timeStamp) -> void final;	
 
 	auto invalidateData(std::chrono::system_clock::time_point timeStamp) -> void final;
+
+	///@}
 	
-	// A Xentara attribute containing the current value. This is a member of this class rather than
-	// of the attributes namespace, because the access flags and type may differ from class to class
+	/// @brief A Xentara attribute containing the current value.
+	/// @note This is a member of this class rather than of the attributes namespace, because the access flags
+	/// and type may differ from class to class
 	static const model::Attribute kValueAttribute;
 
 private:
-	// The actual implementation of read(), which may throw exceptions on error.
+	/// @brief The actual implementation of read(), which may throw exceptions on error.
 	auto doRead(std::chrono::system_clock::time_point timeStamp) -> void;
-	// The actual implementation of write(), which may throw exceptions on error.
+	/// @brief The actual implementation of write(), which may throw exceptions on error.
 	auto doWrite(ValueType value, std::chrono::system_clock::time_point timeStamp) -> void;	
 
-	// Determine the correct data type
+	/// @brief Determines the correct data type based on the *ValueType* template parameter
+	///
+	/// This function returns the same value as dataType(), but is static and constexpr.
 	static constexpr auto staticDataType() -> const data::DataType &;
 
-	// Schedules a value to be written. This function is called by the value write handle.
+	/// @brief Schedules a value to be written.
+	///
+	/// This function is called by the value write handle.
 	auto scheduleOutputValue(ValueType value) noexcept
 	{
 		_pendingOutputValue.enqueue(value);
 	}
 
-	// The read state
+	/// @brief The read state
 	ReadState<ValueType> _readState;
-	// The write state
+	/// @brief The write state
 	WriteState _writeState;
 
-	// The queue for the pending output value
+	/// @brief The queue for the pending output value
 	SingleValueQueue<ValueType> _pendingOutputValue;
 };
 
-// TODO: change list of extern template statements to the supported types
+/// @class xentara::plugins::templateDriver::TemplateOutputHandler
+/// @todo change list of extern template statements to the supported types
 extern template class TemplateOutputHandler<bool>;
 extern template class TemplateOutputHandler<std::uint8_t>;
 extern template class TemplateOutputHandler<std::uint16_t>;

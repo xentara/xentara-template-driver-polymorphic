@@ -31,20 +31,20 @@ auto TemplateOutput::loadConfig(const ConfigIntializer &initializer,
 			// Create the handler
 			_handler = createHandler(value);
 		}
-		// TODO: load configuration parameters
+		/// @todo load configuration parameters
 		else if (name == u8"TODO"sv)
 		{
-			// TODO: parse the value correctly
+			/// @todo parse the value correctly
 			auto todo = value.asNumber<std::uint64_t>();
 
-			// TODO: check that the value is valid
+			/// @todo check that the value is valid
 			if (!"TODO")
 			{
-				// TODO: use an error message that tells the user exactly what is wrong
+				/// @todo use an error message that tells the user exactly what is wrong
 				utils::json::decoder::throwWithLocation(value, std::runtime_error("TODO is wrong with TODO parameter of template output"));
 			}
 
-			// TODO: set the appropriate member variables, and update configAttributes accordingly (if necessary) 
+			/// @todo set the appropriate member variables, and update configAttributes accordingly (if necessary) 
 		}
 		else
 		{
@@ -57,13 +57,13 @@ auto TemplateOutput::loadConfig(const ConfigIntializer &initializer,
 	// Make sure that a data type was specified
 	if (!_handler)
 	{
-		// TODO: replace "template output" with a more descriptive name
+		/// @todo replace "template output" with a more descriptive name
 		utils::json::decoder::throwWithLocation(jsonObject, std::runtime_error("Missing data type in template output"));
 	}
-	// TODO: perform consistency and completeness checks
+	/// @todo perform consistency and completeness checks
 	if (!"TODO")
 	{
-		// TODO: use an error message that tells the user exactly what is wrong
+		/// @todo use an error message that tells the user exactly what is wrong
 		utils::json::decoder::throwWithLocation(jsonObject, std::runtime_error("TODO is wrong with template output"));
 	}
 }
@@ -73,7 +73,7 @@ auto TemplateOutput::createHandler(utils::json::decoder::Value &value) -> std::u
 	// Get the keyword from the value
 	auto keyword = value.asString<std::u8string>();
 	
-	// TODO: use keywords that are appropriate to the I/O component
+	/// @todo use keywords that are appropriate to the I/O component
 	if (keyword == u8"bool"sv)
 	{
 		return std::make_unique<TemplateOutputHandler<bool>>();
@@ -122,7 +122,7 @@ auto TemplateOutput::createHandler(utils::json::decoder::Value &value) -> std::u
 	// The keyword is not known
 	else
 	{
-		// TODO: replace "template output" with a more descriptive name
+		/// @todo replace "template output" with a more descriptive name
 		utils::json::decoder::throwWithLocation(value, std::runtime_error("unknown data type in template output"));
 	}
 
@@ -195,7 +195,7 @@ auto TemplateOutput::resolveAttribute(std::u16string_view name) -> const model::
 		throw std::logic_error("internal error: xentara::plugins::templateDriver::TemplateOutput::resolveAttribute() called before configuration has been loaded");
 	}
 
-	// TODO: add any attributes this class supports directly, including attributes inherited from the I/O component
+	/// @todo add any attributes this class supports directly, including attributes inherited from the I/O component
 
 	// Check the handler attributes
 	if (auto attribute = _handler->resolveAttribute(name))
@@ -208,7 +208,7 @@ auto TemplateOutput::resolveAttribute(std::u16string_view name) -> const model::
 
 auto TemplateOutput::resolveTask(std::u16string_view name) -> std::shared_ptr<process::Task>
 {
-	// TODO: add any additional tasks this class supports
+	/// @todo add any additional tasks this class supports
 	if (name == u"read"sv)
 	{
 		return std::shared_ptr<process::Task>(sharedFromThis(), &_readTask);
@@ -230,7 +230,7 @@ auto TemplateOutput::resolveEvent(std::u16string_view name) -> std::shared_ptr<p
 		throw std::logic_error("internal error: xentara::plugins::templateDriver::TemplateOutput::resolveEvent() called before configuration has been loaded");
 	}
 
-	// TODO: add any events this class supports directly
+	/// @todo add any events this class supports directly
 
 	// Check the handler events
 	if (auto event = _handler->resolveEvent(name, sharedFromThis()))
@@ -251,7 +251,7 @@ auto TemplateOutput::readHandle(const model::Attribute &attribute) const noexcep
 		return std::make_error_code(std::errc::invalid_argument);
 	}
 
-	// TODO: add any attributes this class supports directly
+	/// @todo add any attributes this class supports directly
 	
 	// Check the handler attributes
 	if (auto handle = _handler->readHandle(attribute))
@@ -259,7 +259,7 @@ auto TemplateOutput::readHandle(const model::Attribute &attribute) const noexcep
 		return *handle;
 	}
 
-	// TODO: add any attributes inherited from the I/O component
+	/// @todo add any attributes inherited from the I/O component
 
 	return data::ReadHandle::Error::Unknown;
 }

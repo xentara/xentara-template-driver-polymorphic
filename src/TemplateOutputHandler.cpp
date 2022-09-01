@@ -39,18 +39,18 @@ auto TemplateOutputHandler<ValueType>::read(std::chrono::system_clock::time_poin
 template <typename ValueType>
 auto TemplateOutputHandler<ValueType>::doRead(std::chrono::system_clock::time_point timeStamp) -> void
 {
-	// TODO: read the value
+	/// @todo read the value
 	ValueType value = {};
 
-	// TODO: if the read function does not throw errors, but uses return types or internal handle state,
+	/// @todo if the read function does not throw errors, but uses return types or internal handle state,
 	// throw an std::system_error here on failure, or call _readState.update() directly.
 
 	// The read was successful
 	_readState.update(timeStamp, value);
 
-	// TODO: it may be advantageous to split this function up according to value type, either using explicit 
-	// template specialization, or using if constexpr().
-	// //
+	/// @todo it may be advantageous to split this function up according to value type, either using explicit 
+	/// template specialization, or using if constexpr().
+	//
 	// For example, this function could be split into doRealBoolean(), doRealInteger(), and doRealFloatingPoint() functions.
 	// These functions could then be called like this:
 	//
@@ -67,7 +67,7 @@ auto TemplateOutputHandler<ValueType>::doRead(std::chrono::system_clock::time_po
 	//     doRealFloatingPoint(timeStamp);
 	// }
 	//
-	// Note: to determine if a type is an integer trye, you should use xentara::utils::Tools::Integral instead of std::integral,
+	// To determine if a type is an integer type, you should use xentara::utils::Tools::Integral instead of std::integral,
 	// because std::integral is true for bool, char, wchar_t, char8_t, char16_t, and char32_t, which is generally not desirable.
 }
 
@@ -79,7 +79,7 @@ constexpr auto TemplateOutputHandler<ValueType>::staticDataType() -> const data:
 	{
 	    return data::DataType::kBoolean;
 	}
-	// Note: to determine if a type is an integer trye, we use xentara::utils::Tools::Integral instead of std::integral,
+	// To determine if a type is an integer type, we use xentara::utils::Tools::Integral instead of std::integral,
 	// because std::integral is true for bool, char, wchar_t, char8_t, char16_t, and char32_t, which we don't want.
 	else if constexpr (utils::tools::Integral<ValueType>)
 	{
@@ -104,9 +104,9 @@ auto TemplateOutputHandler<ValueType>::write(std::chrono::system_clock::time_poi
 
 	try
 	{
-		// TODO: write the value
+		/// @todo write the value
 
-		// TODO: if the write function does not throw errors, but uses return types or internal handle state,
+		/// @todo if the write function does not throw errors, but uses return types or internal handle state,
 		// throw an std::system_error here on failure, or call _writeState.update() directly.
 
 		// The write was successful
@@ -124,17 +124,17 @@ auto TemplateOutputHandler<ValueType>::write(std::chrono::system_clock::time_poi
 template <typename ValueType>
 auto TemplateOutputHandler<ValueType>::doWrite(ValueType value, std::chrono::system_clock::time_point timeStamp) -> void
 {
-	// TODO: write the value
+	/// @todo write the value
 
-	// TODO: if the write function does not throw errors, but uses return types or internal handle state,
+	/// @todo if the write function does not throw errors, but uses return types or internal handle state,
 	// throw an std::system_error here on failure, or call _writeState.update() directly.
 
 	// The write was successful
 	_writeState.update(timeStamp, std::error_code());
 
-	// TODO: it may be advantageous to split this function up according to value type, either using explicit 
-	// template specialization, or using if constexpr().
-	// //
+	/// @todo it may be advantageous to split this function up according to value type, either using explicit 
+	/// template specialization, or using if constexpr().
+	//
 	// For example, this function could be split into doWriteBoolean(), doWriteInteger(), and doWriteFloatingPoint() functions.
 	// These functions could then be called like this:
 	//
@@ -151,8 +151,8 @@ auto TemplateOutputHandler<ValueType>::doWrite(ValueType value, std::chrono::sys
 	//     doWriteFloatingPoint(value, timeStamp);
 	// }
 	//
-	// Note: to determine if a type is an integer trye, you should use xentara::utils::Tools::Integral instead of std::integral,
-	// because std::integral is true for bool, char, wchar_t, char8_t, char16_t, and char32_t, which is generally not desirable.
+	// To determine if a type is an integer type, you should use xentara::utils::Tools::Integral instead of std::integral,
+	// because std::integral is true for *bool*, *char*, *wchar_t*, *char8_t*, *char16_t*, and *char32_t*, which is generally not desirable.
 }
 
 template <typename ValueType>
@@ -241,7 +241,7 @@ auto TemplateOutputHandler<ValueType>::writeHandle(const model::Attribute &attri
 		// Make a shared pointer that refers to this handler
 		std::shared_ptr<TemplateOutputHandler<ValueType>> sharedThis(parent, this);
 
-		// TODO: use the correct value type
+		/// @todo use the correct value type
 		return data::WriteHandle(std::in_place_type<ValueType>, &TemplateOutputHandler<ValueType>::scheduleOutputValue, sharedThis);
 	}
 
@@ -256,7 +256,8 @@ auto TemplateOutputHandler<ValueType>::realize() -> void
 	_writeState.realize();
 }
 
-// TODO: change list of template instantiations to the supported types
+/// @class xentara::plugins::templateDriver::TemplateOutputHandler
+/// @todo change list of template instantiations to the supported types
 template class TemplateOutputHandler<bool>;
 template class TemplateOutputHandler<std::uint8_t>;
 template class TemplateOutputHandler<std::uint16_t>;

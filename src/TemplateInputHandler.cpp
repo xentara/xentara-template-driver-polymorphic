@@ -38,21 +38,21 @@ auto TemplateInputHandler<ValueType>::read(std::chrono::system_clock::time_point
 template <typename ValueType>
 auto TemplateInputHandler<ValueType>::doRead(std::chrono::system_clock::time_point timeStamp) -> void
 {
-	// TODO: read the value
+	/// @todo read the value
 	ValueType value = {};
 
-	// TODO: if the read function does not throw errors, but uses return types or internal handle state,
+	/// @todo if the read function does not throw errors, but uses return types or internal handle state,
 	// throw an std::system_error here on failure, or call _state.update() directly.
 
 	// The read was successful
 	_state.update(timeStamp, value);
 
-	// TODO: it may be advantageous to split this function up according to value type, either using explicit 
-	// template specialization, or using if constexpr().
-	// //
+	/// @todo it may be advantageous to split this function up according to value type, either using explicit 
+	/// template specialization, or using if constexpr().
+	//
 	// For example, this function could be split into doReadBoolean(), doReadInteger(), and doReadFloatingPoint() functions.
 	// These functions could then be called like this:
-	//
+	// 
 	// if constexpr (std::same_as<ValueType, bool>)
 	// {
 	//     doReadBoolean(timeStamp);
@@ -65,9 +65,9 @@ auto TemplateInputHandler<ValueType>::doRead(std::chrono::system_clock::time_poi
 	// {
 	//     doReadFloatingPoint(timeStamp);
 	// }
-	//
-	// Note: to determine if a type is an integer trye, you should use xentara::utils::Tools::Integral instead of std::integral,
-	// because std::integral is true for bool, char, wchar_t, char8_t, char16_t, and char32_t, which is generally not desirable.
+	// 
+	// To determine if a type is an integer type, you should use xentara::utils::Tools::Integral instead of std::integral,
+	// because std::integral is true for *bool*, *char*, *wchar_t*, *char8_t*, *char16_t*, and *char32_t*, which is generally not desirable.
 }
 
 template <typename ValueType>
@@ -78,7 +78,7 @@ constexpr auto TemplateInputHandler<ValueType>::staticDataType() -> const data::
 	{
 	    return data::DataType::kBoolean;
 	}
-	// Note: to determine if a type is an integer trye, we use xentara::utils::Tools::Integral instead of std::integral,
+	// To determine if a type is an integer type, we use xentara::utils::Tools::Integral instead of std::integral,
 	// because std::integral is true for bool, char, wchar_t, char8_t, char16_t, and char32_t, which we don't want.
 	else if constexpr (utils::tools::Integral<ValueType>)
 	{
@@ -158,7 +158,8 @@ auto TemplateInputHandler<ValueType>::realize() -> void
 	_state.realize();
 }
 
-// TODO: change list of template instantiations to the supported types
+/// @class xentara::plugins::templateDriver::TemplateInputHandler
+/// @todo change list of template instantiations to the supported types
 template class TemplateInputHandler<bool>;
 template class TemplateInputHandler<std::uint8_t>;
 template class TemplateInputHandler<std::uint16_t>;
