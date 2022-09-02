@@ -27,7 +27,7 @@ auto TemplateOutputHandler<ValueType>::read(std::chrono::system_clock::time_poin
 		doRead(timeStamp);
 
 	}
-	catch (const std::exception &exception)
+	catch (const std::exception &)
 	{
 		// Get the error from the current exception using this special utility function
 		const auto error = utils::eh::currentErrorCode();
@@ -112,7 +112,7 @@ auto TemplateOutputHandler<ValueType>::write(std::chrono::system_clock::time_poi
 		// The write was successful
 		_writeState.update(timeStamp, std::error_code());
 	}
-	catch (const std::exception &exception)
+	catch (const std::exception &)
 	{
 		// Get the error from the current exception using this special utility function
 		const auto error = utils::eh::currentErrorCode();

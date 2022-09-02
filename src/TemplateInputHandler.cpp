@@ -26,7 +26,7 @@ auto TemplateInputHandler<ValueType>::read(std::chrono::system_clock::time_point
 		doRead(timeStamp);
 
 	}
-	catch (const std::exception &exception)
+	catch (const std::exception &)
 	{
 		// Get the error from the current exception using this special utility function
 		const auto error = utils::eh::currentErrorCode();
