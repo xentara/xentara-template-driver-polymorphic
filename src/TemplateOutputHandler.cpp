@@ -25,7 +25,6 @@ auto TemplateOutputHandler<ValueType>::read(std::chrono::system_clock::time_poin
 	{
 		// Call the other read function, but catch exceptions.
 		doRead(timeStamp);
-
 	}
 	catch (const std::exception &)
 	{
@@ -104,13 +103,8 @@ auto TemplateOutputHandler<ValueType>::write(std::chrono::system_clock::time_poi
 
 	try
 	{
-		/// @todo write the value
-
-		/// @todo if the write function does not throw errors, but uses return types or internal handle state,
-		// throw an std::system_error here on failure, or call _writeState.update() directly.
-
-		// The write was successful
-		_writeState.update(timeStamp, std::error_code());
+		// Call the other write function, but catch exceptions.
+		doWrite(*pendingValue, timeStamp);
 	}
 	catch (const std::exception &)
 	{
