@@ -164,7 +164,7 @@ auto TemplateOutputHandler<ValueType>::dataType() const -> const data::DataType 
 }
 
 template <typename ValueType>
-auto TemplateOutputHandler<ValueType>::resolveAttribute(std::u16string_view name) -> const model::Attribute *
+auto TemplateOutputHandler<ValueType>::resolveAttribute(std::string_view name) -> const model::Attribute *
 {
 	// Handle the value attribute separately
 	if (name == kValueAttribute)
@@ -187,7 +187,7 @@ auto TemplateOutputHandler<ValueType>::resolveAttribute(std::u16string_view name
 }
 
 template <typename ValueType>
-auto TemplateOutputHandler<ValueType>::resolveEvent(std::u16string_view name, std::shared_ptr<void> parent) -> std::shared_ptr<process::Event>
+auto TemplateOutputHandler<ValueType>::resolveEvent(std::string_view name, std::shared_ptr<void> parent) -> std::shared_ptr<process::Event>
 {
 	// Check the read state events
 	if (auto event = _readState.resolveEvent(name, parent))

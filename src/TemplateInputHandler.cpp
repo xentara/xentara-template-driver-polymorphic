@@ -104,7 +104,7 @@ auto TemplateInputHandler<ValueType>::dataType() const -> const data::DataType &
 }
 
 template <typename ValueType>
-auto TemplateInputHandler<ValueType>::resolveAttribute(std::u16string_view name) -> const model::Attribute *
+auto TemplateInputHandler<ValueType>::resolveAttribute(std::string_view name) -> const model::Attribute *
 {
 	// Handle the value attribute separately
 	if (name == kValueAttribute)
@@ -122,7 +122,7 @@ auto TemplateInputHandler<ValueType>::resolveAttribute(std::u16string_view name)
 }
 
 template <typename ValueType>
-auto TemplateInputHandler<ValueType>::resolveEvent(std::u16string_view name, std::shared_ptr<void> parent) -> std::shared_ptr<process::Event>
+auto TemplateInputHandler<ValueType>::resolveEvent(std::string_view name, std::shared_ptr<void> parent) -> std::shared_ptr<process::Event>
 {
 	// Check the state events
 	if (auto event = _state.resolveEvent(name, parent))
