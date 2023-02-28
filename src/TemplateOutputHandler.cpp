@@ -31,7 +31,7 @@ auto TemplateOutputHandler<ValueType>::read(std::chrono::system_clock::time_poin
 		// Get the error from the current exception using this special utility function
 		const auto error = utils::eh::currentErrorCode();
 		// Update the state
-		_readState.update(timeStamp, error);
+		_readState.update(timeStamp, utils::eh::unexpected(error));
 	}
 }
 
@@ -154,7 +154,7 @@ auto TemplateOutputHandler<ValueType>::invalidateData(std::chrono::system_clock:
 {
 	// Set the state to "No Data"
 	// Note: the write state is not invalidated, because the write state simply contains the last write error.
-	_readState.update(timeStamp, CustomError::NoData);
+	_readState.update(timeStamp, utils::eh::unexpected(CustomError::NoData));
 }
 
 template <typename ValueType>
