@@ -1,10 +1,7 @@
 // Copyright (c) embedded ocean GmbH
 #include "Attributes.hpp"
 
-#include <xentara/utils/core/Uuid.hpp>
 #include <xentara/data/DataType.hpp>
-
-#include <string_view>
 
 namespace xentara::plugins::templateDriver::attributes
 {
