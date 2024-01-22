@@ -5,7 +5,7 @@
 #include "Tasks.hpp"
 #include "TemplateOutputHandler.hpp"
 
-#include <xentara/config/FallbackHandler.hpp>
+#include <xentara/config/Errors.hpp>
 #include <xentara/model/Attribute.hpp>
 #include <xentara/model/ForEachAttributeFunction.hpp>
 #include <xentara/model/ForEachEventFunction.hpp>
@@ -19,9 +19,7 @@ namespace xentara::plugins::templateDriver
 	
 using namespace std::literals;
 
-auto TemplateOutput::load(utils::json::decoder::Object &jsonObject,
-	config::Resolver &resolver,
-	const config::FallbackHandler &fallbackHandler) -> void
+auto TemplateOutput::load(utils::json::decoder::Object &jsonObject, config::Context &context) -> void
 {
 	// Go through all the members of the JSON object that represents this object
 	for (auto && [name, value] : jsonObject)
@@ -48,9 +46,7 @@ auto TemplateOutput::load(utils::json::decoder::Object &jsonObject,
 		}
 		else
 		{
-			// Pass any unknown parameters on to the fallback handler, which will load the built-in parameters ("id" and "uuid"),
-			// and throw an exception if the key is unknown
-            fallbackHandler(name, value);
+            config::throwUnknownParameterError(name);
 		}
     }
 
