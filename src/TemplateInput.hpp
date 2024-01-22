@@ -51,8 +51,6 @@ public:
 
 	auto makeReadHandle(const model::Attribute &attribute) const noexcept -> std::optional<data::ReadHandle> final;
 
-	auto realize() -> void final;
-
 	/// @}
 
 private:
@@ -73,6 +71,8 @@ private:
 	/// @{
 
 	auto load(utils::json::decoder::Object &jsonObject, config::Context &context) -> void final;
+
+	auto realize() -> void final;
 
 	/// @}
 
